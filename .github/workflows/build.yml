@@ -15,9 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: |
-          device=`xcrun simctl list devices available | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
-          xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
+        run: xcodebuild build -scheme 'MMMAsyncLoadable' -destination generic/platform=iOS
 
   build_watchos:
     name: Build watchOS
@@ -27,9 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: |
-          device=`xcrun simctl list devices available | grep -oE 'Apple Watch.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
-          xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
+        run: xcodebuild build -scheme 'MMMAsyncLoadable' -destination generic/platform=watchOS
 
   build_tvos:
     name: Build tvOS
@@ -39,9 +35,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: |
-          device=`xcrun simctl list devices available | grep -oE 'Apple TV.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
-          xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
+        run: xcodebuild build -scheme 'MMMAsyncLoadable' -destination generic/platform=tvOS
 
   build_macos:
     name: Build macOS
@@ -51,4 +45,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build
-        run: xcodebuild build -destination 'platform=OS X' -scheme 'MMMAsyncLoadable'
+        run: xcodebuild build -scheme 'MMMAsyncLoadable' -destination generic/platform=macOS
