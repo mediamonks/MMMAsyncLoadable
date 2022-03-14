@@ -1,4 +1,4 @@
-name: Test
+name: Build
 
 on:
   push:
@@ -8,47 +8,47 @@ on:
 
 jobs:
   build_ios:
-    name: Build using any available iPhone simulator
+    name: Build iOS
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test
+      - name: Build
         run: |
           device=`xcrun simctl list devices available | grep -oE 'iPhone.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
           xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
 
   build_watchos:
-    name: Build using any available watchOS simulator
+    name: Build watchOS
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test
+      - name: Build
         run: |
           device=`xcrun simctl list devices available | grep -oE 'Apple Watch.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
           xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
 
   build_tvos:
-    name: Build using any available tvOS simulator
+    name: Build tvOS
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test
+      - name: Build
         run: |
           device=`xcrun simctl list devices available | grep -oE 'Apple TV.*?[^\(]+' | head -1 | awk '{$1=$1;print}'`
           xcodebuild build -destination "name=$device" -scheme 'MMMAsyncLoadable'
 
   build_macos:
-    name: Build using any available mac OS destination
+    name: Build macOS
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test
+      - name: Build
         run: xcodebuild build -destination 'platform=OS X' -scheme 'MMMAsyncLoadable'
