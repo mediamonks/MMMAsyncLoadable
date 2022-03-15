@@ -6,7 +6,7 @@
 Pod::Spec.new do |s|
 
 	s.name = "MMMAsyncLoadable"
-	s.version = "0.1.0"
+	s.version = "0.1.2"
 	s.summary = "Use async/await with MMMLoadable"
 	s.description =  s.summary
 	s.homepage = "https://github.com/mediamonks/#{s.name}"
@@ -25,4 +25,5 @@ Pod::Spec.new do |s|
 		"DEFINES_MODULE" => "YES"
 	}
 	s.source_files = [ "Sources/#{s.name}/*.swift" ]
+	s.dependency "MMMLoadable"
 end
