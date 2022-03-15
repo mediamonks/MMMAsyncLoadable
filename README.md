@@ -10,7 +10,7 @@ Use async/await with MMMLoadable
 ## Installation
 
 SPM:
-```
+```swift
 .package(url: "https://github.com/mediamonks/MMMAsyncLoadable", .upToNextMajor(from: "0.1.0"))
 ```
 
@@ -67,7 +67,7 @@ If there is an error thrown in the callback, we use that as the new
 `AsyncLoadable/error` and set it to failed.
 
 **Example**
-```
+```swift
 func fetchUser() -> AsyncLoadable<Models.User> {
     // apiClient.getUser() returns AsyncLoadable<API.User>
 	apiClient.getUser().map { apiUser in
@@ -98,7 +98,7 @@ loadable again. The original loadable won't ever sync again if content is
 available, you will have to call `sync` manually to do that.
 
 **Example**
-```
+```swift
 func fetchLoadableB() -> AsyncLoadable<BValue> {
 	loadableA().flatMap { aVal in
 		return LoadableB(identifier: aVal.identifier)
@@ -118,7 +118,7 @@ iterate over the `AsyncLoadableStream/iterator`, this will stream a new
 
 For example:
 
-```
+```swift
 class MyView: UIView {
 
 	private let loadable: AsyncLoadable<MyData>
