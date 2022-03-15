@@ -3,7 +3,7 @@
 [![Build](https://github.com/mediamonks/MMMAsyncLoadable/workflows/Build/badge.svg)](https://github.com/mediamonks/MMMAsyncLoadable/actions?query=workflow%3ABuild)
 [![Test](https://github.com/mediamonks/MMMAsyncLoadable/workflows/Test/badge.svg)](https://github.com/mediamonks/MMMAsyncLoadable/actions?query=workflow%3ATest)
 
-Use async/await with MMMLoadable
+Use async/await with [MMMLoadable](https://github.com/mediamonks/MMMLoadable).
 
 (This is a part of `MMMTemple` suite of iOS libraries we use at [MediaMonks](https://www.mediamonks.com/).)
 
