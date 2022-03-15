@@ -18,7 +18,7 @@ let package = Package(
 		)
     ],
     dependencies: [
-        .package(name: "MMMLoadable", url: "https://github.com/mediamonks/MMMLoadable", .upToNextMajor(from: "1.6.0"))
+        .package(name: "MMMLoadable", url: "https://github.com/mediamonks/MMMLoadable", .upToNextMajor(from: "1.6.2"))
     ],
     targets: [
         .target(
