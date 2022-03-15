@@ -12,7 +12,7 @@ public protocol AsyncLoadableProtocol: MMMLoadableProtocol {
 	associatedtype C
 	
 	/// The associated content for this loadable. This is now a concrete type, so if your loadable loads multiple values,
-	/// either pass a `tuple` (reccommended up to 2 values) or a wrapping `struct`.
+	/// either pass a `tuple` (recommended up to 2 values) or a wrapping `struct`.
 	var content: C? { get }
 	
 	/// Fetch the content asynchronously, instead of adding a listener, this will throw upon `setFailedWithError` and

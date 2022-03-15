@@ -9,8 +9,8 @@ import MMMLoadable
 extension AsyncLoadable {
 	
 	/// Map a ``AsyncLoadable<C>`` into ``AsyncLoadable<T>`` by supplying a closure that maps ``C`` into
-	/// ``T``. This is helpfull if you want to quickly map a loadable from a "thin" to a "fat" model without creating
-	/// unneccessary `MMMLoadableProxy`s. E.g. ``AsyncLoadable<API.User>`` into
+	/// ``T``. This is helpful if you want to quickly map a loadable from a "thin" to a "fat" model without creating
+	/// unnecessary `MMMLoadableProxy`s. E.g. ``AsyncLoadable<API.User>`` into
 	/// ``AsyncLoadable<Models.User>``.
 	///
 	/// If the original loadable is already synced / has contents available, we map it directly.
@@ -33,8 +33,8 @@ extension AsyncLoadable {
 	}
 	
 	/// Map a ``AsyncLoadable<C>`` into ``AsyncLoadable<T>`` by supplying a closure that maps ``C`` into
-	/// ``T``. This is helpfull if you want to quickly map a loadable from a "thin" to a "fat" model without creating
-	/// unneccessary `MMMLoadableProxy`s. E.g. ``AsyncLoadable<API.User>`` into
+	/// ``T``. This is helpful if you want to quickly map a loadable from a "thin" to a "fat" model without creating
+	/// unnecessary `MMMLoadableProxy`s. E.g. ``AsyncLoadable<API.User>`` into
 	/// ``AsyncLoadable<Models.User>``. This allows for the closure to call async functions.
 	///
 	/// If there is an error thrown in the callback, we use that as the new ``AsyncLoadable/error`` and set it to failed.
@@ -59,7 +59,7 @@ extension AsyncLoadable {
 	}
 	
 	/// FlatMap a ``AsyncLoadable<C>`` into ``AsyncLoadable<T>`` by supplying a closure that maps ``C`` into
-	/// ``AsyncLoadable<T>``. This is helpfull if you want to chain loadables without having to observe each one.
+	/// ``AsyncLoadable<T>``. This is helpful if you want to chain loadables without having to observe each one.
 	///
 	/// For example say you have `LoadableA` that upon success will load `LoadableB` using a value in it's contents,
 	/// `LoadableB` will be exposed to the users, since that only contains valuable info for them. If `LoadableA` fails,

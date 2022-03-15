@@ -42,7 +42,7 @@ import MMMLoadable
 ///
 /// **Please note** that due to the nature of `async/await` in swift it's crucial to store the stream as a local (private) property
 /// to ensure that ``AsyncLoadableStream/finish()`` get's called upon `deinit`. This stops the stream.
-/// Otherwise your `Actor` will get blocked indefinetly, since it will keep on waiting for new values, causing a memory leak.
+/// Otherwise your `Actor` will get blocked indefinitely, since it will keep on waiting for new values, causing a memory leak.
 public final class AsyncLoadableStream<C> {
 	
 	private weak var loadable: AsyncLoadable<C>?
