@@ -151,3 +151,9 @@ store the stream as a local (private) property to ensure that
 `AsyncLoadableStream/finish()` get's called upon `deinit`. This stops the
 stream. Otherwise your `Actor` will get blocked indefinitely, since it will keep
 on waiting for new values, causing a memory leak.
+
+## Ready for liftoff? 🚀
+
+We're always looking for talent. Join one of the fastest-growing rocket ships in
+the business. Head over to our [careers page](https://media.monks.com/careers)
+for more info!
