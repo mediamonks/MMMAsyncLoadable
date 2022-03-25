@@ -128,7 +128,7 @@ func fetchLoadableB() -> AsyncLoadable<BValue> {
 }
 ```
 
-#### FlatMap
+#### Joined
 
 `func joined<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<(C, T)>`
 
