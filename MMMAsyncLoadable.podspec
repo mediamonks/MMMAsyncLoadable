@@ -6,7 +6,7 @@
 Pod::Spec.new do |s|
 
 	s.name = "MMMAsyncLoadable"
-	s.version = "0.1.2"
+	s.version = "0.2.0"
 	s.summary = "Use async/await with MMMLoadable"
 	s.description =  s.summary
 	s.homepage = "https://github.com/mediamonks/#{s.name}"

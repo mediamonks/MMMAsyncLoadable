@@ -48,7 +48,7 @@ internal final class AsyncObservablesTests: XCTestCase {
 		XCTAssertEqual(preSynced.loadableState, preSyncMap.loadableState)
 		XCTAssertEqual(preSynced.isContentsAvailable, preSyncMap.isContentsAvailable)
 		
-		let preSyncAsyncMap = preSynced.map { data -> String in
+        let preSyncAsyncMap = preSynced.asyncMap { data -> String in
 			try await Task.sleep(nanoseconds: 1000)
 			return data.title
 		}
@@ -82,4 +82,16 @@ internal final class AsyncObservablesTests: XCTestCase {
 			XCTAssertEqual(error as! MyError, loadableFail.error as! MyError)
 		}
 	}
+    
+    public func testJoining() async throws {
+        
+        let loadable = MyLoadable(timeout: 0.1, shouldFail: false)
+        
+        let (data1, data2) = try await loadable.joined { data in
+            OtherLoadable(data: data, shouldFail: false)
+        }.fetch()
+        
+        XCTAssertEqual(data1, .default())
+        XCTAssertEqual(data2, .construct(.default()))
+    }
 }
