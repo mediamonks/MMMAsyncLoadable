@@ -19,7 +19,7 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: build
+          checkName: Build iOS
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Wait for test to succeed
@@ -28,7 +28,7 @@ jobs:
         id: wait-for-test
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: test
+          checkName: Test iOS
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: "marvinpinto/action-automatic-releases@latest"
