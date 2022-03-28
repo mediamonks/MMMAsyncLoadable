@@ -132,7 +132,7 @@ func fetchLoadableB() -> AsyncLoadable<BValue> {
 
 `func joined<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<(C, T)>`
 
-Join two `AsyncLoadable`s together, from `AsyncLoadable<C>`` and `AsyncLoadable<T>`
+Join two `AsyncLoadable`s together, from `AsyncLoadable<C>` and `AsyncLoadable<T>`
 to a `AsyncLoadable<(C, T)>`. This could come in useful when you want to grab
 data from `C` to construct your loadable `T` without losing `C`.
 
