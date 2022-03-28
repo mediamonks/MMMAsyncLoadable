@@ -161,8 +161,6 @@ internal final class MapAsyncAwaitLoadable<O, C>: AsyncLoadable<C> {
 	private let origin: AsyncLoadable<O>
 	private let map: (O) async throws -> C
 	
-	public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
-	
 	public init(_ origin: AsyncLoadable<O>, _ map: @escaping (O) async throws -> C) {
 		self.origin = origin
 		self.map = map

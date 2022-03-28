@@ -42,7 +42,9 @@ internal final class AsyncObservablesTests: XCTestCase {
 		let preSynced = MyLoadable(timeout: 0.1, shouldFail: false)
 		
 		_ = try await preSynced.fetch()
-		
+        
+        XCTAssert(preSynced.isContentsAvailable)
+        
 		let preSyncMap = preSynced.map { $0.title }
 		
 		XCTAssertEqual(preSynced.loadableState, preSyncMap.loadableState)
