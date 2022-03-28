@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/mediamonks/MMMCommonCore",
         "state": {
           "branch": null,
-          "revision": "e00a2f92c1fbf9e94df674eb87f8d9899618a42a",
-          "version": "1.8.1"
+          "revision": "a8b725aed95d7a3a46dbc287794d6dc7625d497a",
+          "version": "1.8.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/mediamonks/MMMLoadable",
         "state": {
           "branch": null,
-          "revision": "0e69e519e43aa5e7d79c1a8ddf6b8be83a687e42",
-          "version": "1.6.4"
+          "revision": "1c6c4da637a9bd1e98e85b065acec6ab399d3ece",
+          "version": "1.7.0"
         }
       },
       {

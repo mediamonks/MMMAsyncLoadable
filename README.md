@@ -149,7 +149,8 @@ func fetchLoadableB() -> AsyncLoadable<(AValue, BValue)> {
 
 ### AsyncLoadableObserver
 
-`MMMLoadableObserver` that supports an asynchronous closure as it's callback.
+`MMMLoadableObserver` that supports an asynchronous closure as it's callback. Or use
+the `loadable.sink { loadable in ... }` shorthand and pass an async closure.
 
 ### AsyncLoadableStream
 

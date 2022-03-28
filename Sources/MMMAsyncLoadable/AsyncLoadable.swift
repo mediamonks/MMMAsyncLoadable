@@ -100,7 +100,7 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 				throw AsyncError.invalidData
 			}
 		}
-		
+        
 		return try await fetch()
 	}
 }
