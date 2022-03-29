@@ -25,6 +25,10 @@ pod 'MMMLoadable'
 
 ## Usage
 
+❕This documentation is built with the assumption that you're already aware
+of `MMMLoadable`. If you're not, head over to the [MMMLoadable](https://github.com/mediamonks/MMMLoadable)
+page for more information.
+
 ### AsyncLoadable
 
 An async loadable makes it possible to fetch the content `C` using the
@@ -36,7 +40,37 @@ you can avoid working with generics "down the line".
 concrete type `C`. So if your loadable loads multiple values, either pass a
 `tuple` (recommended up to 2 values) or a wrapping `struct`.
 
-It introduces 2 new methods, `fetch` and `fetchIfNeeded`.
+It introduces 2 new methods, `fetch()` and `fetchIfNeeded()`.
+
+**Simple example:**
+
+```swift
+public final class UserLoadable: AsyncLoadable<UserData> {
+    
+    public override func doSync() {
+        
+        client.fetchUser { [weak self] result in
+            
+	    guard let self = self else { return }
+	    
+	    switch result {
+	    case .success(let user):
+	        // This will set the state to `didSyncSuccessfully` and
+		// populate the `content` property.
+	        self.setDidSyncSuccessfullyWithContent(user)
+	    case .failed(let error):
+	        // This will set the state to `didFailToSync` and
+		// populate the `error` property.
+	        self.setFailedToSyncWithError(error)
+	    }
+	}
+    }
+}
+
+// At the call-site:
+let loadable = UserLoadable()
+let user = try await loadable.fetch() // This is your `content`, or it will throw the `error`.
+```
 
 #### Fetch
 
@@ -70,9 +104,9 @@ If there is an error thrown in the callback, we use that as the new
 ```swift
 func fetchUser() -> AsyncLoadable<Models.User> {
     // apiClient.getUser() returns AsyncLoadable<API.User>
-	apiClient.getUser().map { apiUser in
+    apiClient.getUser().map { apiUser in
         return Models.User(apiModel: apiUser)
-	}
+    }
 }
 ```
 
@@ -92,9 +126,9 @@ If there is an error thrown in the callback, we use that as the new
 ```swift
 func fetchUser() -> AsyncLoadable<Models.User> {
     // apiClient.getUser() returns AsyncLoadable<API.User>
-	apiClient.getUser().asyncMap { apiUser in
+    apiClient.getUser().asyncMap { apiUser in
         try await Models.FetchUser(apiModel: apiUser)
-	}
+    }
 }
 ```
 
@@ -122,9 +156,9 @@ available, you will have to call `sync` manually to do that.
 **Example**
 ```swift
 func fetchLoadableB() -> AsyncLoadable<BValue> {
-	loadableA().flatMap { aVal in
-		return LoadableB(identifier: aVal.identifier)
-	}
+    loadableA().flatMap { aVal in
+        return LoadableB(identifier: aVal.identifier)
+    }
 }
 ```
 
@@ -141,9 +175,9 @@ This behaves the same as `AsyncLoadable/flatMap(_:)`.
 **Example**
 ```swift
 func fetchLoadableB() -> AsyncLoadable<(AValue, BValue)> {
-  loadableA().joined { aVal in
-    return LoadableB(identifier: aVal.identifier)
-  }
+    loadableA().joined { aVal in
+        return LoadableB(identifier: aVal.identifier)
+    }
 }
 ```
 
@@ -163,28 +197,28 @@ For example:
 ```swift
 class MyView: UIView {
 
-	private let loadable: AsyncLoadable<MyData>
+    private let loadable: AsyncLoadable<MyData>
 
-	// It's crucial that we call `finish()` somehow, this is also called upon
-	// deinit, so storing it as a property is an easy way to accomplish this.
-	private var stream: AsyncLoadableStream<MyData>?
+    // It's crucial that we call `finish()` somehow, this is also called upon
+    // deinit, so storing it as a property is an easy way to accomplish this.
+    private var stream: AsyncLoadableStream<MyData>?
 
-	public init(loadable: AsyncLoadable<MyData>) {
+    public init(loadable: AsyncLoadable<MyData>) {
 
-		let stream = AsyncLoadableStream(loadable)
+        let stream = AsyncLoadableStream(loadable)
+	
+        self.loadable = loadable
+        self.stream = stream
 
-		self.loadable = loadable
-		self.stream = stream
+        for await obj in stream.iterator {
+            // Do something with the stream object, e.g. update UI.
+            updateUI()
+        }
+    }
 
-		for await obj in stream.iterator {
-			// Do something with the stream object, e.g. update UI.
-			updateUI()
-		}
-	}
-
-	private func updateUI() {
-		loader.isHidden = loadable.loadableState != .syncing
-	}
+    private func updateUI() {
+        loader.isHidden = loadable.loadableState != .syncing
+    }
 }
 ```
 
