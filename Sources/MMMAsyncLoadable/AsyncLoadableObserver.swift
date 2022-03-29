@@ -5,6 +5,7 @@
 
 import Foundation
 import MMMLoadable
+import MMMCommonCore
 
 /// ``MMMLoadableObserver`` that supports asynchronous closures as it's callback.
 public final class AsyncLoadableObserver: MMMLoadableObserver {
@@ -31,8 +32,12 @@ extension MMMPureLoadableProtocol {
     /// - Returns: The observer, you usually want to store this outside of the scope, e.g.
     ///            in a private property so it doesn't deallocate right away.
     public func sink(_ block: @Sendable @escaping (Self) async -> Void) -> AsyncLoadableObserver? {
-        return AsyncLoadableObserver(loadable: self) { loadable in
-            await block(loadable as! Self)
+        return AsyncLoadableObserver(loadable: self) { [weak self] loadable in
+            guard let self = self else {
+                assertionFailure("\(MMMTypeName(Self.self)) was lost inside the observer callback?")
+                return
+            }
+            await block(self)
         }
     }
 }

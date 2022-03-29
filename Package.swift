@@ -18,12 +18,13 @@ let package = Package(
 		)
     ],
     dependencies: [
-        .package(name: "MMMLoadable", url: "https://github.com/mediamonks/MMMLoadable", .upToNextMajor(from: "1.7.0"))
+        .package(name: "MMMLoadable", url: "https://github.com/mediamonks/MMMLoadable", .upToNextMajor(from: "1.7.0")),
+        .package(name: "MMMCommonCore", url: "https://github.com/mediamonks/MMMCommonCore", .upToNextMajor(from: "1.8.2"))
     ],
     targets: [
         .target(
 			name: "MMMAsyncLoadable",
-			dependencies: ["MMMLoadable"]
+			dependencies: ["MMMLoadable", "MMMCommonCore"]
 		),
         .testTarget(
             name: "MMMAsyncLoadableTests",
