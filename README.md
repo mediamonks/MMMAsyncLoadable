@@ -74,20 +74,29 @@ let user = try await loadable.fetch() // This is your `content`, or it will thro
 
 #### Fetch
 
-`func fetch() async throws -> C`, fetch the content asynchronously, instead of
-adding a listener, this will throw upon `setFailedWithError` and return the
-content when `setDidSyncSuccessfully`. Equivalent of `MMMLoadable/sync()`.
+```swift
+func fetch() async throws -> C
+```
+Fetch the content asynchronously, instead of adding a listener, this will 
+throw upon `setFailedWithError` and return the content when `setDidSyncSuccessfully`.
+
+Equivalent of `MMMLoadable/sync()`.
 
 #### Fetch if needed
 
-`func fetchIfNeeded() async throws -> C`, similar to `fetch()`, only when
-`MMMPureLoadableProtocol/needsSync()` is `true`. Equivalent of `syncIfNeeded()`.
+```swift
+func fetchIfNeeded() async throws -> C
+```
 
-Apart from that you're able to `map`/`flatMap` an `AsyncLoadable`.
+Similar to `fetch()`, only when `MMMPureLoadableProtocol/needsSync()` is `true`.
+
+Equivalent of `MMMLoadable/syncIfNeeded()`.
 
 #### Map
 
-`func map<T>(_ transform: @escaping (C) throws -> T) -> AsyncLoadable<T>`
+```swift
+func map<T>(_ transform: @escaping (C) throws -> T) -> AsyncLoadable<T>
+```
 
 Map a `AsyncLoadable<C>` into `AsyncLoadable<T>` by supplying a closure that
 maps `C` into `T`. This is helpful if you want to quickly map a loadable from a
@@ -112,7 +121,9 @@ func fetchUser() -> AsyncLoadable<Models.User> {
 
 #### AsyncMap
 
-`func asyncMap<T>(_ transform: @escaping (C) async throws -> T) -> AsyncLoadable<T>`
+```swift
+func asyncMap<T>(_ transform: @escaping (C) async throws -> T) -> AsyncLoadable<T>
+```
 
 Map a `AsyncLoadable<C>` into `AsyncLoadable<T>` by supplying a `async` closure
 that maps `C` into `T`. This is similar to `map` but allows to take a `async`
@@ -134,7 +145,9 @@ func fetchUser() -> AsyncLoadable<Models.User> {
 
 #### FlatMap
 
-`func flatMap<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<T>`
+```swift
+func flatMap<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<T>
+```
 
 FlatMap a `AsyncLoadable<C>` into `AsyncLoadable<T>` by supplying a closure that
 maps `C` into `AsyncLoadable<T>`. This is helpful if you want to chain loadables
@@ -164,7 +177,9 @@ func fetchLoadableB() -> AsyncLoadable<BValue> {
 
 #### Joined
 
-`func joined<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<(C, T)>`
+```swift
+func joined<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<(C, T)>
+```
 
 Join two `AsyncLoadable`s together, from `AsyncLoadable<C>` and `AsyncLoadable<T>`
 to a `AsyncLoadable<(C, T)>`. This could come in useful when you want to grab
