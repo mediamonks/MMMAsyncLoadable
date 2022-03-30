@@ -7,7 +7,7 @@ import Foundation
 import MMMLoadable
 
 extension AsyncLoadable {
-	
+    
 	/// Map a ``AsyncLoadable<C>`` into ``AsyncLoadable<T>`` by supplying a closure that maps ``C`` into
 	/// ``T``. This is helpful if you want to quickly map a loadable from a "thin" to a "fat" model without creating
 	/// unnecessary `MMMLoadableProxy`s. E.g. ``AsyncLoadable<API.User>`` into
@@ -28,14 +28,11 @@ extension AsyncLoadable {
 	///	```
 	///
 	/// - Returns: A new ``AsyncLoadable<T>``.
-	public func map<T>(_ transform: @escaping (C) throws -> T) -> AsyncLoadable<T> {
-		return MapAsyncLoadable(self, transform)
+    public func map<T>(
+        _ transform: @escaping (C) throws -> T
+    ) -> AsyncLoadable<T> {
+        return MapAsyncLoadable(origin: self, map: transform)
 	}
-    
-    @available(*, deprecated, renamed: "asyncMap(_:)")
-    public func map<T>(_ transform: @escaping (C) async throws -> T) -> AsyncLoadable<T> {
-        return MapAsyncAwaitLoadable(self, transform)
-    }
     
 	/// Similar to ``AsyncLoadable/map(_:)`` but with the ability to supply a async callback.
     ///
@@ -44,8 +41,10 @@ extension AsyncLoadable {
     /// content is available, you will have to call `sync` manually to do that.
     ///
     /// - Returns: A new ``AsyncLoadable<T>``.
-	public func asyncMap<T>(_ transform: @escaping (C) async throws -> T) -> AsyncLoadable<T> {
-		return MapAsyncAwaitLoadable(self, transform)
+    public func asyncMap<T>(
+        _ transform: @escaping (C) async throws -> T
+    ) -> AsyncLoadable<T> {
+        return MapAsyncAwaitLoadable(origin: self, map: transform)
 	}
 	
 	/// FlatMap a ``AsyncLoadable<C>`` into ``AsyncLoadable<T>`` by supplying a closure that maps ``C`` into
@@ -70,8 +69,10 @@ extension AsyncLoadable {
 	///	}
 	///	```
 	/// - Returns: A new ``AsyncLoadable<T>``.
-	public func flatMap<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<T> {
-		return FlatMapAsyncLoadable(self, transform)
+	public func flatMap<T>(
+        _ transform: @escaping (C) async throws -> AsyncLoadable<T>
+    ) -> AsyncLoadable<T> {
+        return FlatMapAsyncLoadable(origin: self, map: transform)
 	}
     
     /// Join two ``AsyncLoadable``s together, from ``AsyncLoadable<C>`` and ``AsyncLoadable<T>`` to a
@@ -90,8 +91,10 @@ extension AsyncLoadable {
     /// ```
     ///
     /// - Returns: A new ``AsyncLoadable<(C, T)>``.
-    public func joined<T>(_ transform: @escaping (C) async throws -> AsyncLoadable<T>) -> AsyncLoadable<(C, T)> {
-        return JoinedAsyncLoadable(self, transform)
+    public func joined<T>(
+        _ transform: @escaping (C) async throws -> AsyncLoadable<T>
+    ) -> AsyncLoadable<(C, T)> {
+        return JoinedAsyncLoadable(origin: self, map: transform)
     }
 }
 
@@ -100,10 +103,14 @@ internal final class MapAsyncLoadable<O, C>: AsyncLoadable<C> {
 	
 	private let origin: AsyncLoadable<O>
 	private let map: (O) throws -> C
-	
-	public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
-	
-	public init(_ origin: AsyncLoadable<O>, _ map: @escaping (O) throws -> C) {
+    
+    public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
+    public override func needsSync() -> Bool { origin.needsSync() || super.needsSync() }
+    
+	public init(
+        origin: AsyncLoadable<O>,
+        map: @escaping (O) throws -> C
+    ) {
 		self.origin = origin
 		self.map = map
 		
@@ -141,18 +148,28 @@ internal final class MapAsyncLoadable<O, C>: AsyncLoadable<C> {
 	
 		syncTask?.cancel()
 		syncTask = Task { [weak self] in
-			
 			do {
-				if let oC = try await self?.origin.fetchIfNeeded(), let c = try self?.map(oC) {
-					self?.setDidSyncSuccessfullyWithContent(c)
-				} else {
-					self?.setFailedToSyncWithError(self?.error)
-				}
+                try await self?.update()
 			} catch {
 				self?.setFailedToSyncWithError(error)
 			}
 		}
 	}
+    
+    private func update() async throws {
+        
+        let originalContent: O = try await {
+            if didFetchIfNeeded {
+                return try await origin.fetchIfNeeded()
+            } else {
+                return try await origin.fetch()
+            }
+        }()
+        
+        let newContent = try self.map(originalContent)
+        
+        setDidSyncSuccessfullyWithContent(newContent)
+    }
 }
 
 /// Internal declaration to map a loadable using an async callback, not to be exposed publicly.
@@ -160,11 +177,17 @@ internal final class MapAsyncAwaitLoadable<O, C>: AsyncLoadable<C> {
 	
 	private let origin: AsyncLoadable<O>
 	private let map: (O) async throws -> C
-	
-	public init(_ origin: AsyncLoadable<O>, _ map: @escaping (O) async throws -> C) {
+    
+    public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
+    public override func needsSync() -> Bool { origin.needsSync() || super.needsSync() }
+    
+	public init(
+        origin: AsyncLoadable<O>,
+        map: @escaping (O) async throws -> C
+    ) {
 		self.origin = origin
 		self.map = map
-		
+        
 		super.init()
 		
 		if let error = origin.error {
@@ -182,18 +205,28 @@ internal final class MapAsyncAwaitLoadable<O, C>: AsyncLoadable<C> {
 	
 		syncTask?.cancel()
 		syncTask = Task { [weak self] in
-			
 			do {
-				if let oC = try await self?.origin.fetchIfNeeded(), let c = try await self?.map(oC) {
-					self?.setDidSyncSuccessfullyWithContent(c)
-				} else {
-					self?.setFailedToSyncWithError(self?.error)
-				}
+                try await self?.update()
 			} catch {
 				self?.setFailedToSyncWithError(error)
 			}
 		}
 	}
+    
+    private func update() async throws {
+        
+        let originalContent: O = try await {
+            if didFetchIfNeeded {
+                return try await origin.fetchIfNeeded()
+            } else {
+                return try await origin.fetch()
+            }
+        }()
+        
+        let newContent = try await self.map(originalContent)
+        
+        setDidSyncSuccessfullyWithContent(newContent)
+    }
 }
 
 /// Internal declaration to flatMap a loadable, not to be exposed publicly.
@@ -202,7 +235,13 @@ internal final class FlatMapAsyncLoadable<O, C>: AsyncLoadable<C> {
     private let origin: AsyncLoadable<O>
     private let map: (O) async throws -> AsyncLoadable<C>
     
-    public init(_ origin: AsyncLoadable<O>, _ map: @escaping (O) async throws -> AsyncLoadable<C>) {
+    public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
+    public override func needsSync() -> Bool { origin.needsSync() || super.needsSync() }
+    
+    public init(
+        origin: AsyncLoadable<O>,
+        map: @escaping (O) async throws -> AsyncLoadable<C>
+    ) {
         self.origin = origin
         self.map = map
         
@@ -223,17 +262,36 @@ internal final class FlatMapAsyncLoadable<O, C>: AsyncLoadable<C> {
     
         syncTask?.cancel()
         syncTask = Task { [weak self] in
-            
             do {
-                if let oC = try await self?.origin.fetchIfNeeded(), let c = try await self?.map(oC).fetch() {
-                    self?.setDidSyncSuccessfullyWithContent(c)
-                } else {
-                    self?.setFailedToSyncWithError(self?.error)
-                }
+                try await self?.update()
             } catch {
                 self?.setFailedToSyncWithError(error)
             }
         }
+    }
+    
+    private func update() async throws {
+        
+        let fetchIfNeeded = didFetchIfNeeded
+        
+        let originalContent: O = try await {
+            if fetchIfNeeded {
+                return try await origin.fetchIfNeeded()
+            } else {
+                return try await origin.fetch()
+            }
+        }()
+        
+        let newLoadable = try await self.map(originalContent)
+        let newContent: C = try await {
+            if fetchIfNeeded {
+                return try await newLoadable.fetchIfNeeded()
+            } else {
+                return try await newLoadable.fetch()
+            }
+        }()
+        
+        setDidSyncSuccessfullyWithContent(newContent)
     }
 }
 
@@ -243,7 +301,13 @@ internal final class JoinedAsyncLoadable<O, C>: AsyncLoadable<(O, C)> {
     private let origin: AsyncLoadable<O>
     private let map: (O) async throws -> AsyncLoadable<C>
     
-    public init(_ origin: AsyncLoadable<O>, _ map: @escaping (O) async throws -> AsyncLoadable<C>) {
+    public override var isContentsAvailable: Bool { origin.isContentsAvailable && content != nil }
+    public override func needsSync() -> Bool { origin.needsSync() || super.needsSync() }
+    
+    public init(
+        origin: AsyncLoadable<O>,
+        map: @escaping (O) async throws -> AsyncLoadable<C>
+    ) {
         self.origin = origin
         self.map = map
         
@@ -261,19 +325,37 @@ internal final class JoinedAsyncLoadable<O, C>: AsyncLoadable<(O, C)> {
     private var syncTask: Task<Void, Error>?
     
     public override func doSync() {
-    
+        
         syncTask?.cancel()
         syncTask = Task { [weak self] in
             
             do {
-                if let oC = try await self?.origin.fetchIfNeeded(), let c = try await self?.map(oC).fetch() {
-                    self?.setDidSyncSuccessfullyWithContent((oC, c))
-                } else {
-                    self?.setFailedToSyncWithError(self?.error)
-                }
+                try await self?.update()
             } catch {
                 self?.setFailedToSyncWithError(error)
             }
         }
+    }
+    
+    private func update() async throws {
+        
+        let originalContent: O = try await {
+            if didFetchIfNeeded {
+                return try await origin.fetchIfNeeded()
+            } else {
+                return try await origin.fetch()
+            }
+        }()
+        
+        let newLoadable = try await self.map(originalContent)
+        let newContent: C = try await {
+            if didFetchIfNeeded {
+                return try await newLoadable.fetchIfNeeded()
+            } else {
+                return try await newLoadable.fetch()
+            }
+        }()
+        
+        setDidSyncSuccessfullyWithContent((originalContent, newContent))
     }
 }

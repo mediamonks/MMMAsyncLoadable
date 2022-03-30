@@ -17,17 +17,17 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 		/// We've synced successfully, however, ``AsyncLoadable/isContentsAvailable`` is false, or
 		/// ``AsyncLoadable/content`` is nil.
 		case invalidData
-		/// We did not sync succesfully, and no ``AsyncLoadable/error`` was passed.
+		/// We did not sync successfully, and no ``AsyncLoadable/error`` was passed.
 		case unknownError
 	}
 	
-	/// The content of this loadable, possible to set internally.
+	/// The content of this loadable. Only available if ``AsyncLoadable/isContentsAvailable`` is `true`.
 	public internal(set) var content: C?
 	
-	/// If the content is available, defaults to `content != nil`.
+	/// If the content is available, defaults to `content != nil`, but you can override this to supply additional conditions.
 	public override var isContentsAvailable: Bool { content != nil }
 	
-	/// Call this to sucessfully sync the loadable.
+	/// Call this to successfully sync the loadable.
 	/// - Parameter content: The content we've synced with.
 	public func setDidSyncSuccessfullyWithContent(_ content: C?) {
 		self.content = content
@@ -68,6 +68,7 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 					}
 					
 					self.waiter = nil
+                    self.didFetchIfNeeded = false
 					
 					return
 					
@@ -80,6 +81,7 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 					}
 					
 					self.waiter = nil
+                    self.didFetchIfNeeded = false
 					
 					return
 				}
@@ -88,6 +90,9 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 			self.sync()
 		}
 	}
+    
+    /// Internal marker to check if this loadable was requested to only sync if needed.
+    internal var didFetchIfNeeded: Bool = false
 	
 	/// Fetch the content for this loadable, if it needs sync. Similar to ``syncIfNeeded()``.
 	/// - Returns: The content.
@@ -100,6 +105,8 @@ open class AsyncLoadable<C>: MMMLoadable, AsyncLoadableProtocol {
 				throw AsyncError.invalidData
 			}
 		}
+        
+        didFetchIfNeeded = true
         
 		return try await fetch()
 	}

@@ -1,3 +1,8 @@
+//
+// MMMAsyncLoadable. Part of MMMTemple.
+// Copyright (C) 2016-2022 MediaMonks. All rights reserved.
+//
+
 import Foundation
 import MMMAsyncLoadable
 
@@ -23,7 +28,7 @@ public final class MyLoadable: AsyncLoadable<MyData> {
 	private let timeout: TimeInterval
 	private let shouldFail: Bool
 	
-	public init(timeout: TimeInterval = 1, shouldFail: Bool = false) {
+    public init(timeout: TimeInterval = 0.01, shouldFail: Bool = false) {
 		
 		self.timeout = timeout
 		self.shouldFail = shouldFail
@@ -31,8 +36,12 @@ public final class MyLoadable: AsyncLoadable<MyData> {
 		super.init()
 	}
 	
+    internal var doSyncCounter = 0
+    
 	public override func doSync() {
 		
+        doSyncCounter += 1
+        
 		DispatchQueue.main.asyncAfter(deadline: .now() + timeout) {
 			
 			if self.shouldFail {
@@ -51,15 +60,19 @@ public final class OtherLoadable: AsyncLoadable<MyData> {
 	
 	public init(data: MyData, shouldFail: Bool = false) {
 		
-		self.data = data
+        self.data = data
 		self.shouldFail = shouldFail
 		
 		super.init()
 	}
 	
+    internal var doSyncCounter = 0
+    
 	public override func doSync() {
 		
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        doSyncCounter += 1
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
 			
 			if self.shouldFail {
 				self.setFailedToSyncWithError(MyError.bar)

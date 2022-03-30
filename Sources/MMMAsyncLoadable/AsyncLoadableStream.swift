@@ -54,7 +54,7 @@ public final class AsyncLoadableStream<C> {
 	
 	private var continuation: AsyncStream<AsyncLoadableStreamObject<C>>.Continuation!
 	
-	/// Initialize a new stream.
+	/// Initialise a new stream.
 	/// - Parameters:
 	///   - loadable: The ``AsyncLoadable`` to listen to.
 	///   - bufferingPolicy: The buffering policy, by default we only store the latest value, however, if you need

@@ -12,7 +12,7 @@ public final class AsyncLoadableObserver: MMMLoadableObserver {
 	
 	public init?(
 		loadable: MMMPureLoadableProtocol?,
-		callback: @Sendable @escaping (MMMPureLoadableProtocol) async -> Void
+		callback: @escaping (MMMPureLoadableProtocol) async -> Void
 	) {
 		super.init(loadable: loadable) { loadable in
 			Task {
@@ -31,7 +31,7 @@ extension MMMPureLoadableProtocol {
     /// - Parameter block: Get's called every time the loadable changes.
     /// - Returns: The observer, you usually want to store this outside of the scope, e.g.
     ///            in a private property so it doesn't deallocate right away.
-    public func sink(_ block: @Sendable @escaping (Self) async -> Void) -> AsyncLoadableObserver? {
+    public func sink(_ block: @escaping (Self) async -> Void) -> AsyncLoadableObserver? {
         return AsyncLoadableObserver(loadable: self) { [weak self] loadable in
             guard let self = self else {
                 assertionFailure("\(MMMTypeName(Self.self)) was lost inside the observer callback?")
