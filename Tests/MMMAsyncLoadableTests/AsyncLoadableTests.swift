@@ -10,7 +10,7 @@ internal final class AsyncObservablesTests: XCTestCase {
 	
 	public func testBasics() async throws {
 		
-		let loadable = MyLoadable(timeout: 0.01)
+		let loadable = MyLoadable()
 		let data = try await loadable.fetch()
 		
 		XCTAssertEqual(data, .default())
@@ -22,14 +22,14 @@ internal final class AsyncObservablesTests: XCTestCase {
         XCTAssertEqual(loadable.doSyncCounter, 2)
         
 		do {
-			_ = try await MyLoadable(timeout: 0.01, shouldFail: true).fetch()
+			_ = try await MyLoadable(shouldFail: true).fetch()
 			
 			XCTFail("Call did not throw")
 		} catch {
 			XCTAssertEqual(error as! MyError, MyError.foo)
 		}
 		
-        let flatOriginal = MyLoadable(timeout: 0.01)
+        let flatOriginal = MyLoadable()
         var flatRaw: OtherLoadable!
 		let flatMapped = flatOriginal.flatMap { data -> OtherLoadable in
             let l = OtherLoadable(data: data)
@@ -69,7 +69,7 @@ internal final class AsyncObservablesTests: XCTestCase {
     
     public func testMapping() async throws {
 		
-		let loadable = MyLoadable(timeout: 0.01, shouldFail: false)
+		let loadable = MyLoadable(shouldFail: false)
 		let mapped = loadable.map { $0.title }
 		
         XCTAssertEqual(loadable.doSyncCounter, 0)
@@ -96,7 +96,7 @@ internal final class AsyncObservablesTests: XCTestCase {
         
 		XCTAssertEqual(mapped.loadableState, loadable.loadableState)
 		
-		let preSynced = MyLoadable(timeout: 0.01, shouldFail: false)
+		let preSynced = MyLoadable(shouldFail: false)
 		
         XCTAssertEqual(preSynced.doSyncCounter, 0)
         
@@ -148,7 +148,7 @@ internal final class AsyncObservablesTests: XCTestCase {
         
         XCTAssertEqual(preSynced.doSyncCounter, 3)
         
-		let loadableFail = MyLoadable(timeout: 0.01, shouldFail: true)
+		let loadableFail = MyLoadable(shouldFail: true)
 		let flatMapNonFail = loadableFail.flatMap { OtherLoadable(data: $0) }
 		
 		do {
@@ -162,7 +162,7 @@ internal final class AsyncObservablesTests: XCTestCase {
     
     public func testJoining() async throws {
         
-        let loadable = MyLoadable(timeout: 0.01, shouldFail: false)
+        let loadable = MyLoadable(shouldFail: false)
         
         XCTAssertEqual(loadable.doSyncCounter, 0)
         

@@ -28,7 +28,7 @@ public final class MyLoadable: AsyncLoadable<MyData> {
 	private let timeout: TimeInterval
 	private let shouldFail: Bool
 	
-    public init(timeout: TimeInterval = 0.01, shouldFail: Bool = false) {
+    public init(timeout: TimeInterval = 0.05, shouldFail: Bool = false) {
 		
 		self.timeout = timeout
 		self.shouldFail = shouldFail
@@ -72,7 +72,7 @@ public final class OtherLoadable: AsyncLoadable<MyData> {
 		
         doSyncCounter += 1
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 			
 			if self.shouldFail {
 				self.setFailedToSyncWithError(MyError.bar)
