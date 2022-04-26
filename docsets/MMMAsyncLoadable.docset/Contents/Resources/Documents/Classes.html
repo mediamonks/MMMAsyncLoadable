@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Classes  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Section/Classes" class="dashAnchor"></a>
+
+    <a title="Classes  Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="img/logo.png" srcset="img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">MMMAsyncLoadable Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      Classes  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadable.html">AsyncLoadable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadable/AsyncError.html">– AsyncError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadableObserver.html">AsyncLoadableObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadableStream.html">AsyncLoadableStream</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/MMMPureLoadableProtocol.html">MMMPureLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AsyncLoadableStreamObject.html">AsyncLoadableStreamObject</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Class/AsyncLoadable" class="dashAnchor"></a>
+                    <a class="token" href="#/">AsyncLoadable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>AsyncLoadable is a concrete implementation of <code><a href="Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a></code>, subclass from this class to make
+your own loadable, so you can avoid working with generics &ldquo;down the line&rdquo;.</p>
+
+                        <a href="Classes/AsyncLoadable.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Class/AsyncLoadableObserver" class="dashAnchor"></a>
+                    <a class="token" href="#/">AsyncLoadableObserver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>MMMLoadableObserver</code> that supports asynchronous closures as it&rsquo;s callback.</p>
+
+                        <a href="Classes/AsyncLoadableObserver.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Class/AsyncLoadableStream" class="dashAnchor"></a>
+                    <a class="token" href="#/">AsyncLoadableStream</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Listen to an <code><a href="Classes/AsyncLoadable.html">AsyncLoadable</a></code> by using an <code>AsyncStream</code>. This allows you to iterate over the
+<code><a href="Classes/AsyncLoadableStream.html#/iterator">iterator</a></code>, this will stream a new <code><a href="Structs/AsyncLoadableStreamObject.html">AsyncLoadableStreamObject</a></code> on every
+change in the loadable.</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">MyView</span><span class="p">:</span> <span class="kt">UIView</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">loadable</span><span class="p">:</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span>
+
+    <span class="c1">// It's crucial that we call `finish()` somehow, this is also called upon deinit,</span>
+    <span class="c1">// so storing it as a property is an easy way to accomplish this.</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">stream</span><span class="p">:</span> <span class="kt">AsyncLoadableStream</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span><span class="p">?</span>
+
+    <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">loadable</span><span class="p">:</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">let</span> <span class="nv">stream</span> <span class="o">=</span> <span class="kt">AsyncLoadableStream</span><span class="p">(</span><span class="n">loadable</span><span class="p">)</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">loadable</span> <span class="o">=</span> <span class="n">loadable</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
+
+        <span class="k">for</span> <span class="n">await</span> <span class="n">obj</span> <span class="k">in</span> <span class="n">stream</span><span class="o">.</span><span class="n">iterator</span> <span class="p">{</span>
+            <span class="c1">// Do something with the stream object, e.g. update UI.</span>
+            <span class="nf">updateUI</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">updateUI</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">loader</span><span class="o">.</span><span class="n">isHidden</span> <span class="o">=</span> <span class="n">loadable</span><span class="o">.</span><span class="n">loadableState</span> <span class="o">!=</span> <span class="o">.</span><span class="n">syncing</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><strong>Please note</strong> that due to the nature of <code>async/await</code> in swift it&rsquo;s crucial to store the stream as a local (private) property
+to ensure that <code><a href="Classes/AsyncLoadableStream.html#/finish()">finish()</a></code> get&rsquo;s called upon <code>deinit</code>. This stops the stream.
+Otherwise your <code>Actor</code> will get blocked indefinitely, since it will keep on waiting for new values, causing a memory leak.</p>
+
+                        <a href="Classes/AsyncLoadableStream.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMAsyncLoadable" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MMMAsyncLoadable  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="MMMAsyncLoadable  Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="img/logo.png" srcset="img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">MMMAsyncLoadable Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      MMMAsyncLoadable  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadable.html">AsyncLoadable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadable/AsyncError.html">– AsyncError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadableObserver.html">AsyncLoadableObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AsyncLoadableStream.html">AsyncLoadableStream</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/MMMPureLoadableProtocol.html">MMMPureLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AsyncLoadableStreamObject.html">AsyncLoadableStreamObject</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <h1 id='mmmasyncloadable' class='heading'>MMMAsyncLoadable</h1>
+
+<p><a href="https://github.com/mediamonks/MMMAsyncLoadable/actions?query=workflow%3ABuild"><img src="https://github.com/mediamonks/MMMAsyncLoadable/workflows/Build/badge.svg" alt="Build"></a>
+<a href="https://github.com/mediamonks/MMMAsyncLoadable/actions?query=workflow%3ATest"><img src="https://github.com/mediamonks/MMMAsyncLoadable/workflows/Test/badge.svg" alt="Test"></a></p>
+
+<p>Use async/await with <a href="https://github.com/mediamonks/MMMLoadable">MMMLoadable</a>.</p>
+
+<p>(This is a part of <code>MMMTemple</code> suite of iOS libraries we use at <a href="https://www.mediamonks.com/">MediaMonks</a>.)</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>SPM:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/mediamonks/MMMAsyncLoadable"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">))</span>
+</code></pre>
+
+<p>Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">source</span> <span class="s1">'https://github.com/mediamonks/MMMSpecs.git'</span>
+<span class="n">source</span> <span class="s1">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">pod</span> <span class="s1">'MMMLoadable'</span>
+</code></pre>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>❕This documentation is built with the assumption that you&rsquo;re already aware
+of <code>MMMLoadable</code>. If you&rsquo;re not, head over to the <a href="https://github.com/mediamonks/MMMLoadable">MMMLoadable</a>
+page for more information.</p>
+<h3 id='asyncloadable' class='heading'>AsyncLoadable</h3>
+
+<p>An async loadable makes it possible to fetch the content <code>C</code> using the
+async/await syntax. <code><a href="Classes/AsyncLoadable.html">AsyncLoadable</a></code> is a concrete implementation of
+<code><a href="Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a></code>, subclass <code><a href="Classes/AsyncLoadable.html">AsyncLoadable</a></code> to make your own loadable, so
+you can avoid working with generics &ldquo;down the line&rdquo;.</p>
+
+<p><code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;C&gt;</a></code> requires that your <code>MMMLoadable</code> &lsquo;contents&rsquo; is a single
+concrete type <code>C</code>. So if your loadable loads multiple values, either pass a
+<code>tuple</code> (recommended up to 2 values) or a wrapping <code>struct</code>.</p>
+
+<p>It introduces 2 new methods, <code>fetch()</code> and <code>fetchIfNeeded()</code>.</p>
+
+<p><strong>Simple example:</strong></p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">UserLoadable</span><span class="p">:</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">UserData</span><span class="o">&gt;</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">doSync</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="n">client</span><span class="o">.</span><span class="n">fetchUser</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="n">result</span> <span class="k">in</span>
+
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">self</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+        <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">user</span><span class="p">):</span>
+            <span class="c1">// This will set the state to `didSyncSuccessfully` and</span>
+        <span class="c1">// populate the `content` property.</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">setDidSyncSuccessfullyWithContent</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">failed</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+            <span class="c1">// This will set the state to `didFailToSync` and</span>
+        <span class="c1">// populate the `error` property.</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">setFailedToSyncWithError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// At the call-site:</span>
+<span class="k">let</span> <span class="nv">loadable</span> <span class="o">=</span> <span class="kt">UserLoadable</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">user</span> <span class="o">=</span> <span class="k">try</span> <span class="n">await</span> <span class="n">loadable</span><span class="o">.</span><span class="nf">fetch</span><span class="p">()</span> <span class="c1">// This is your `content`, or it will throw the `error`.</span>
+</code></pre>
+<h4 id='fetch' class='heading'>Fetch</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetch</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">C</span>
+</code></pre>
+
+<p>Fetch the content asynchronously, instead of adding a listener, this will 
+throw upon <code>setFailedWithError</code> and return the content when <code>setDidSyncSuccessfully</code>.</p>
+
+<p>Equivalent of <code>MMMLoadable/sync()</code>.</p>
+<h4 id='fetch-if-needed' class='heading'>Fetch if needed</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchIfNeeded</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">C</span>
+</code></pre>
+
+<p>Similar to <code>fetch()</code>, only when <code>MMMPureLoadableProtocol/needsSync()</code> is <code>true</code>.</p>
+
+<p>Equivalent of <code>MMMLoadable/syncIfNeeded()</code>.</p>
+<h4 id='map' class='heading'>Map</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">C</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span>
+</code></pre>
+
+<p>Map a <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;C&gt;</a></code> into <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;T&gt;</a></code> by supplying a closure that
+maps <code>C</code> into <code>T</code>. This is helpful if you want to quickly map a loadable from a
+&ldquo;thin&rdquo; to a &ldquo;fat&rdquo; model without creating unnecessary <code>MMMLoadableProxy</code>s.
+E.g. <code>AsyncLoadable&lt;API.User&gt;</code> into <code>AsyncLoadable&lt;Models.User&gt;</code>.</p>
+
+<p>If the original loadable is already synced / has contents available, we map it
+directly.</p>
+
+<p>If there is an error thrown in the callback, we use that as the new
+<code>AsyncLoadable/error</code> and set it to failed.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchUser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">Models</span><span class="o">.</span><span class="kt">User</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// apiClient.getUser() returns AsyncLoadable&lt;API.User&gt;</span>
+    <span class="n">apiClient</span><span class="o">.</span><span class="nf">getUser</span><span class="p">()</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">apiUser</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">Models</span><span class="o">.</span><span class="kt">User</span><span class="p">(</span><span class="nv">apiModel</span><span class="p">:</span> <span class="n">apiUser</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h4 id='asyncmap' class='heading'>AsyncMap</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="n">asyncMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">C</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span>
+</code></pre>
+
+<p>Map a <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;C&gt;</a></code> into <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;T&gt;</a></code> by supplying a <code>async</code> closure
+that maps <code>C</code> into <code>T</code>. This is similar to <code>map</code> but allows to take a <code>async</code>
+closure, downside of this is that it won&rsquo;t directly map the loadable if content
+is available, so you&rsquo;ll have to make sure to sync it again.</p>
+
+<p>If there is an error thrown in the callback, we use that as the new
+<code>AsyncLoadable/error</code> and set it to failed.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchUser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">Models</span><span class="o">.</span><span class="kt">User</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// apiClient.getUser() returns AsyncLoadable&lt;API.User&gt;</span>
+    <span class="n">apiClient</span><span class="o">.</span><span class="nf">getUser</span><span class="p">()</span><span class="o">.</span><span class="n">asyncMap</span> <span class="p">{</span> <span class="n">apiUser</span> <span class="k">in</span>
+        <span class="k">try</span> <span class="n">await</span> <span class="kt">Models</span><span class="o">.</span><span class="kt">FetchUser</span><span class="p">(</span><span class="nv">apiModel</span><span class="p">:</span> <span class="n">apiUser</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h4 id='flatmap' class='heading'>FlatMap</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="n">flatMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">C</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span>
+</code></pre>
+
+<p>FlatMap a <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;C&gt;</a></code> into <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;T&gt;</a></code> by supplying a closure that
+maps <code>C</code> into <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;T&gt;</a></code>. This is helpful if you want to chain loadables
+without having to observe each one.</p>
+
+<p>For example say you have <code>LoadableA</code> that upon success will load <code>LoadableB</code>
+using a value in it&rsquo;s contents, <code>LoadableB</code> will be exposed to the users, since
+that only contains valuable info for them. If <code>LoadableA</code> fails, we don&rsquo;t have
+to try to load <code>LoadableB</code>.</p>
+
+<p>If there is an error thrown in the callback, we use that as the new
+<code>AsyncLoadable/error</code> and set it to failed.</p>
+
+<p><strong>Please note</strong> that unlike the map function, that doesn&rsquo;t take an async closure,
+if the content is available, we don&rsquo;t map it directly, you will have to sync the
+loadable again. The original loadable won&rsquo;t ever sync again if content is
+available, you will have to call <code>sync</code> manually to do that.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchLoadableB</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">BValue</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nf">loadableA</span><span class="p">()</span><span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="n">aVal</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">LoadableB</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="n">aVal</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h4 id='joined' class='heading'>Joined</h4>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="n">joined</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">C</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">C</span><span class="p">,</span> <span class="kt">T</span><span class="p">)</span><span class="o">&gt;</span>
+</code></pre>
+
+<p>Join two <code><a href="Classes/AsyncLoadable.html">AsyncLoadable</a></code>s together, from <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;C&gt;</a></code> and <code><a href="Classes/AsyncLoadable.html">AsyncLoadable&lt;T&gt;</a></code>
+to a <code>AsyncLoadable&lt;(C, T)&gt;</code>. This could come in useful when you want to grab
+data from <code>C</code> to construct your loadable <code>T</code> without losing <code>C</code>.</p>
+
+<p>This behaves the same as <code><a href="Classes/AsyncLoadable.html#/flatMap(_:)">flatMap(_:)</a></code>.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchLoadableB</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">AValue</span><span class="p">,</span> <span class="kt">BValue</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nf">loadableA</span><span class="p">()</span><span class="o">.</span><span class="n">joined</span> <span class="p">{</span> <span class="n">aVal</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">LoadableB</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="n">aVal</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<h3 id='asyncloadableobserver' class='heading'>AsyncLoadableObserver</h3>
+
+<p><code>MMMLoadableObserver</code> that supports an asynchronous closure as it&rsquo;s callback. Or use
+the <code>loadable.sink { loadable in ... }</code> shorthand and pass an async closure.</p>
+<h3 id='asyncloadablestream' class='heading'>AsyncLoadableStream</h3>
+
+<p>Listen to an <code><a href="Classes/AsyncLoadable.html">AsyncLoadable</a></code> by using an <code>AsyncStream</code>. This allows you to
+iterate over the <code><a href="Classes/AsyncLoadableStream.html#/iterator">iterator</a></code>, this will stream a new
+<code><a href="Structs/AsyncLoadableStreamObject.html">AsyncLoadableStreamObject</a></code> on every change in the loadable.</p>
+
+<p>For example:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">MyView</span><span class="p">:</span> <span class="kt">UIView</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">loadable</span><span class="p">:</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span>
+
+    <span class="c1">// It's crucial that we call `finish()` somehow, this is also called upon</span>
+    <span class="c1">// deinit, so storing it as a property is an easy way to accomplish this.</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">stream</span><span class="p">:</span> <span class="kt">AsyncLoadableStream</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span><span class="p">?</span>
+
+    <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">loadable</span><span class="p">:</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">MyData</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="k">let</span> <span class="nv">stream</span> <span class="o">=</span> <span class="kt">AsyncLoadableStream</span><span class="p">(</span><span class="n">loadable</span><span class="p">)</span>
+
+        <span class="k">self</span><span class="o">.</span><span class="n">loadable</span> <span class="o">=</span> <span class="n">loadable</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">stream</span> <span class="o">=</span> <span class="n">stream</span>
+
+        <span class="k">for</span> <span class="n">await</span> <span class="n">obj</span> <span class="k">in</span> <span class="n">stream</span><span class="o">.</span><span class="n">iterator</span> <span class="p">{</span>
+            <span class="c1">// Do something with the stream object, e.g. update UI.</span>
+            <span class="nf">updateUI</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">updateUI</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">loader</span><span class="o">.</span><span class="n">isHidden</span> <span class="o">=</span> <span class="n">loadable</span><span class="o">.</span><span class="n">loadableState</span> <span class="o">!=</span> <span class="o">.</span><span class="n">syncing</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><strong>Please note</strong> that due to the nature of <code>async/await</code> in swift it&rsquo;s crucial to
+store the stream as a local (private) property to ensure that
+<code><a href="Classes/AsyncLoadableStream.html#/finish()">finish()</a></code> get&rsquo;s called upon <code>deinit</code>. This stops the
+stream. Otherwise your <code>Actor</code> will get blocked indefinitely, since it will keep
+on waiting for new values, causing a memory leak.</p>
+<h2 id='ready-for-liftoff' class='heading'>Ready for liftoff? 🚀</h2>
+
+<p>We&rsquo;re always looking for talent. Join one of the fastest-growing rocket ships in
+the business. Head over to our <a href="https://media.monks.com/careers">careers page</a>
+for more info!</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMAsyncLoadable" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>

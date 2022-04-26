@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AsyncLoadable Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/AsyncLoadable" class="dashAnchor"></a>
+
+    <a title="AsyncLoadable Class Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="../img/logo.png" srcset="../img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">MMMAsyncLoadable Reference</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      AsyncLoadable Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AsyncLoadable.html">AsyncLoadable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AsyncLoadable/AsyncError.html">– AsyncError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AsyncLoadableObserver.html">AsyncLoadableObserver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AsyncLoadableStream.html">AsyncLoadableStream</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/MMMPureLoadableProtocol.html">MMMPureLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AsyncLoadableStreamObject.html">AsyncLoadableStreamObject</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>AsyncLoadable</h1>
+            <p>AsyncLoadable is a concrete implementation of <code><a href="../Protocols/AsyncLoadableProtocol.html">AsyncLoadableProtocol</a></code>, subclass from this class to make
+your own loadable, so you can avoid working with generics &ldquo;down the line&rdquo;.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Enum/AsyncError" class="dashAnchor"></a>
+                    <a class="token" href="#/">AsyncError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors thrown by the <code><a href="../Classes/AsyncLoadable.html">AsyncLoadable</a></code>.</p>
+
+                        <a href="../Classes/AsyncLoadable/AsyncError.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/content" class="dashAnchor"></a>
+                    <a class="token" href="#/">content</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The content of this loadable. Only available if <code><a href="../Classes/AsyncLoadable.html#/isContentsAvailable">isContentsAvailable</a></code> is <code>true</code>.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/isContentsAvailable" class="dashAnchor"></a>
+                    <a class="token" href="#/">isContentsAvailable</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the content is available, defaults to <code>content != nil</code>, but you can override this to supply additional conditions.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/setDidSyncSuccessfullyWithContent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">setDidSyncSuccessfullyWithContent(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Call this to successfully sync the loadable.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/fetch()" class="dashAnchor"></a>
+                    <a class="token" href="#/">fetch()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the content for this loadable. Similar to <code>sync()</code> only we immediately return either the <code><a href="../Classes/AsyncLoadable.html#/content">content</a></code> or
+throw the <code>error</code>.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/fetchIfNeeded()" class="dashAnchor"></a>
+                    <a class="token" href="#/">fetchIfNeeded()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Fetch the content for this loadable, if it needs sync. Similar to <code>syncIfNeeded()</code>.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/map(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">map(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Map a <code>AsyncLoadable&lt;C&gt;</code> into <code>AsyncLoadable&lt;T&gt;</code> by supplying a closure that maps <code>C</code> into
+<code>T</code>. This is helpful if you want to quickly map a loadable from a &ldquo;thin&rdquo; to a &ldquo;fat&rdquo; model without creating
+unnecessary <code>MMMLoadableProxy</code>s. E.g. <code>AsyncLoadable&lt;API.User&gt;</code> into
+<code>AsyncLoadable&lt;Models.User&gt;</code>.</p>
+
+<p>If the original loadable is already synced / has contents available, we map it directly.</p>
+
+<p>If there is an error thrown in the callback, we use that as the new <code>AsyncLoadable/error</code> and set it to failed.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchUser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">Models</span><span class="o">.</span><span class="kt">User</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="c1">// apiClient.getUser() returns AsyncLoadable&lt;API.User&gt;</span>
+    <span class="n">apiClient</span><span class="o">.</span><span class="nf">getUser</span><span class="p">()</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">apiUser</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">Models</span><span class="o">.</span><span class="kt">User</span><span class="p">(</span><span class="nv">apiModel</span><span class="p">:</span> <span class="n">apiUser</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/asyncMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">asyncMap(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Similar to <code><a href="../Classes/AsyncLoadable.html#/map(_:)">map(_:)</a></code> but with the ability to supply a async callback.</p>
+
+<p><strong>Please note</strong> that unlike the map function, that doesn&rsquo;t take an async closure, if the content is available,
+   we don&rsquo;t map it directly, you will have to sync the loadable again. The original loadable won&rsquo;t ever sync again if
+   content is available, you will have to call <code>sync</code> manually to do that.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/flatMap(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">flatMap(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>FlatMap a <code>AsyncLoadable&lt;C&gt;</code> into <code>AsyncLoadable&lt;T&gt;</code> by supplying a closure that maps <code>C</code> into
+<code>AsyncLoadable&lt;T&gt;</code>. This is helpful if you want to chain loadables without having to observe each one.</p>
+
+<p>For example say you have <code>LoadableA</code> that upon success will load <code>LoadableB</code> using a value in it&rsquo;s contents,
+<code>LoadableB</code> will be exposed to the users, since that only contains valuable info for them. If <code>LoadableA</code> fails,
+we don&rsquo;t have to try to load <code>LoadableB</code>.</p>
+
+<p>If there is an error thrown in the callback, we use that as the new <code>AsyncLoadable/error</code> and set it to failed.</p>
+
+<p><strong>Please note</strong> that unlike the map function, that doesn&rsquo;t take an async closure, if the content is available,
+we don&rsquo;t map it directly, you will have to sync the loadable again. The original loadable won&rsquo;t ever sync again if
+content is available, you will have to call <code>sync</code> manually to do that.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchLoadableB</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="kt">BValue</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nf">loadableA</span><span class="p">()</span><span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="n">aVal</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">LoadableB</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="n">aVal</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/joined(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">joined(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Join two <code>AsyncLoadable</code>s together, from <code>AsyncLoadable&lt;C&gt;</code> and <code>AsyncLoadable&lt;T&gt;</code> to a
+<code>AsyncLoadable&lt;(C, T)&gt;</code>. This could come in useful when you want to grab data from <code>C</code> to construct
+your loadable <code>T</code> without losing <code>C</code>.</p>
+
+<p>This behaves the same as <code><a href="../Classes/AsyncLoadable.html#/flatMap(_:)">flatMap(_:)</a></code>.</p>
+
+<p><strong>Example</strong></p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fetchLoadableB</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AsyncLoadable</span><span class="o">&lt;</span><span class="p">(</span><span class="kt">AValue</span><span class="p">,</span> <span class="kt">BValue</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="nf">loadableA</span><span class="p">()</span><span class="o">.</span><span class="n">joined</span> <span class="p">{</span> <span class="n">aVal</span> <span class="k">in</span>
+        <span class="k">return</span> <span class="kt">LoadableB</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="n">aVal</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMAsyncLoadable" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>
